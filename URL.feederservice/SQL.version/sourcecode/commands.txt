@@ -1,0 +1,15 @@
+mvn clean install -DskipTests
+docker run --name url-feeder-service -p8085:8085 url-feeder-service
+docker build -f Dockerfile -t url-feeder-service:latest .
+docker exec -it kafka bin/sh
+kafka-topics.sh --list --zookeeper 172.17.0.1:2181
+kafka-topics.sh --create --zookeeper 172.17.0.1:2181 --replication-factor 1 --partitions 1 --topic html-topic
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic html_topic
+
+docker run --name myredis -p6379:6379 redis
+docker exec -it my-redis redis-cli
+
+
+
+# HOSTNAME_COMMAND: "ifconfig eth0 | grep 'inet ' | awk '{ print $$2 }'"
+# KAFKA_ZOOKEEPER_CONNECT: 172.17.0.1:2181
