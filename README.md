@@ -106,7 +106,7 @@ POST /batch
 ]
 ```
 
-## License
+
 
 [MIT](LICENSE) (or your license info here)
 
